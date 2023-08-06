@@ -39,6 +39,7 @@ runs:
       run: |
           cd /tmp
           curl -Lo proxy-extension.py https://github.com/oidc-scenario-based-tester/osbt/releases/download/v${{ inputs.version }}/proxy-extension.py
+      shell: bash
     - name: run mitmproxy extension
       run: mitmdump -s /tmp/proxy-extension.py &
       shell: bash
