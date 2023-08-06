@@ -1,0 +1,22 @@
+name: 'OSBT Setup Action'
+description: 'Setup actions for osbt'
+inputs:
+  version:
+    description: "osbt version"
+    required: true
+    default: "0.0.1"
+
+runs:
+  using: "composite"
+  steps:
+    - name: setup osbt
+      run: |
+          cd /tmp
+          curl -Lo osbt https://github.com/oidc-scenario-based-tester/osbt/releases/download/v${{ inputs.version }}/osbt_${{ inputs.version }}_linux_amd64
+          sudo mv osbt /usr/local/bin/
+          sudo chmod +x /usr/local/bin/osbt
+          osbt --help
+      shell: bash
+    - name: run osbt server
+      run: osbt server &
+      shell: bash
