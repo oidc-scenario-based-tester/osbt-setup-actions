@@ -23,7 +23,7 @@ runs:
     - name: setup attacker-op
       run: |
           cd /tmp
-          curl -Lo attacker-op https://github.com/oidc-scenario-based-tester/attacker-op/releases/download/v${{ inputs.version }}/attacker-op_${{ inputs.version }}_linux_amd64
+          curl -Lo attacker-op https://github.com/oidc-scenario-based-tester/osbt/releases/download/v${{ inputs.version }}/attacker-op_${{ inputs.version }}_linux_amd64
           sudo mv attacker-op /usr/local/bin/
           sudo chmod +x /usr/local/bin/attacker-op
       shell: bash
