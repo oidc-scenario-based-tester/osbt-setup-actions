@@ -20,3 +20,24 @@ runs:
     - name: run osbt server
       run: osbt server &
       shell: bash
+    - name: setup attacker-op
+      run: |
+          cd /tmp
+          curl -Lo attacker-op https://github.com/oidc-scenario-based-tester/attacker-op/releases/download/v${{ inputs.version }}/attacker-op_${{ inputs.version }}_linux_amd64
+          sudo mv attacker-op /usr/local/bin/
+          sudo chmod +x /usr/local/bin/attacker-op
+    - name: run attacker-op
+      run: attacker-op &
+      shell: bash
+    - name: install mitmproxy
+      run: |
+          sudo apt-get update
+          sudo apt-get install -y mitmproxy
+      shell: bash
+    - name: setup mitmproxy extension
+      run: |
+          cd /tmp
+          curl -Lo proxy-extension.py https://github.com/oidc-scenario-based-tester/osbt/releases/download/v${{ inputs.version }}/proxy-extension.py
+    - name: run mitmproxy extension
+      run: mitmdump -s /tmp/proxy-extension.py &
+      shell: bash
